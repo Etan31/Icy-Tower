@@ -234,3 +234,40 @@ function updateHeloUser() {
 
   toggleImageOpacity(true);
 }
+
+
+const startGameLink = document.getElementById('start-game-link');
+const loginMessage = document.getElementById('you-must-login');
+
+// Add event listener to the game link
+startGameLink.addEventListener('click', (e) => {
+    if (sessionStorage.getItem('currentUser') === null) {
+        e.preventDefault();
+        loginMessage.style.display = 'block'; 
+    }
+});
+
+// Function to check login status and update the link's state
+function checkLoginStatus() {
+    if (sessionStorage.getItem('currentUser') === null) {
+        startGameLink.style.pointerEvents = 'none';
+    } else {
+        startGameLink.style.pointerEvents = 'auto';
+    }
+}
+
+// Call checkLoginStatus initially
+checkLoginStatus();
+
+// Assuming this function is called when the user logs in
+function loginUser(username) {
+    // Simulate logging in
+    sessionStorage.setItem('currentUser', username);
+    
+    // Update the state of the link immediately after login
+    checkLoginStatus();
+    
+    // Optionally, hide the login message
+    loginMessage.style.display = 'none';
+}
+
